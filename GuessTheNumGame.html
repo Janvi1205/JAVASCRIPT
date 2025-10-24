@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: black;color: white; display: block;">
+    <div><h2>Guess the number Game</h2></div>
+
+      <div>
+        <p>Enter the number</p>
+        <input id="guess" type="text">
+    </div>
+    <button id="submit">submit</button>
+    <div id="loworhi"></div>
+
+    <p id="pguess">previous guesses</p>
+    <p id="rem">number of guess remaining</p>
+  
+
+
+
+    
+</body>
+
+<script>
+
+    let randomNumber = parseInt(Math.random() * 100 + 1);
+
+    const user_input=document.getElementById("guess");
+    const submit=document.getElementById("submit");
+    const last_guess=document.getElementById("pguess");
+    const leftguess=document.getElementById("rem");
+    const loworhi=document.getElementById("loworhi");
+    
+
+    let prevguess=[];
+    let numguess=1;
+
+    let playgame=true;
+
+    if(playgame)
+{
+    submit.addEventListener('click',function(e){
+        e.preventDefault();
+        const guess=parseInt(user_input.value);
+        validateguess(guess);
+
+    });
+}
+
+function validateguess(guess)
+{
+    if(isNaN(guess)){
+        alert('please eneter valid number');
+    }
+    else if(guess>100)
+    {
+        alert('number is greater than 100')
+    }
+    else if(guess<1)
+    {
+        alert('number is lower than 1');
+    }
+    else{
+        prevguess.push(guess);
+
+        if(numguess==11){
+            displayguess(guess);
+            displaymess(`Game over.Random number was ${randomNumber}`);
+            endgame();
+        }
+        else{
+            checkguess(guess);
+            displayguess(guess);
+        }
+        
+    }
+
+}
+
+function checkguess(guess){
+    if(guess===randomNumber){
+        displaymess(`You guessed it right`);
+        endgame;
+    }
+    else if(guess<randomNumber)
+    {
+        displaymess(`number is too low`);
+    }
+    else if(guess>randomNumber)
+    {
+        displaymess(`number is too high`);
+    }
+
+}
+
+function displayguess(guess)
+{
+    user_input.value='';
+    last_guess.innerHTML +=`${guess},`;
+    numguess++;
+    leftguess.innerHTML = `${11 - numguess} `;
+    
+    
+    
+
+}
+function displaymess(message) {
+    loworhi.innerHTML = `<p>${message}</p>`;
+}
+
+    
+
+    
+
+
+
+ 
+
+
+
+
+</script>
+</html>

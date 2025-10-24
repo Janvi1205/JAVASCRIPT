@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="height:100vh; display: flex;flex-direction: column;justify-content: center;align-items: center;">
+        <img style="width: 100px;height:100px;" src="../public/images/sheriyanlogo.png" alt="">
+        <br>
+        <button id="subsbtn"
+            style="background-color: red;padding: 12px;border-radius: 20px;border: none;cursor: pointer;color: white;font-weight: 800;">Subscribe
+            to this Channel</button>
+
+    </div>
+
+
+</body>
+<script>
+    class Youtubech {
+        constructor() {
+            this.subcribers = []
+        }
+
+        subscribe(name) {
+            this.subcribers.push(name);
+            name.update("you have subscribed the channel")
+            console.log(`Total subscriber for the channel ${this.subcribers.length}`)
+            document.querySelector("#subsbtn").addEventListener("click",() =>{
+                let div = document.createElement("div")
+                div.textContent = `Total subscriber for the channel ${this.subcribers.length}`
+                div.style.border = "1px solid black"
+                div.style.color = "white"
+                div.style.backgroundColor = "brown"
+                document.body.appendChild(div);
+            })
+
+        }
+
+        notify(data) {
+            this.subcribers.forEach(subs => {
+                subs.update(data);
+
+            });
+
+        }
+
+    }
+    class user {
+        constructor(name) {
+            this.name = name;
+
+        }
+        update(data) {
+            console.log(`${this.name},${data}`)
+        }
+    }
+
+    let yt = new Youtubech()
+    let u1 = new user("Harsh");
+    let u2 = new user("Janvi");
+    let u3=new user("jeevi");
+    yt.subscribe(u1);
+    yt.subscribe(u2);
+     yt.subscribe(u3);
+    yt.notify("sheriyans have uplaoded a new video")
+
+
+</script>
+
+</html>

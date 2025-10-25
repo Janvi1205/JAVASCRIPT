@@ -9,6 +9,23 @@
         body {
             background-color: black;
             color: white;
+            height: max-content;
+        }
+
+        .toast {
+            border: 1px solid black;
+            width: 200px;
+            padding: 16px;
+            color: white;
+            background-color: rgb(65, 61, 61);
+            margin-top: -590px;
+            margin-left: 1020px;
+        }
+
+        /* When toast becomes visible */
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -36,14 +53,8 @@
             this.subcribers.push(name);
             name.update("you have subscribed the channel")
             console.log(`Total subscriber for the channel ${this.subcribers.length}`)
-            document.querySelector("#subsbtn").addEventListener("click",() =>{
-                let div = document.createElement("div")
-                div.textContent = `Total subscriber for the channel ${this.subcribers.length}`
-                div.style.border = "1px solid black"
-                div.style.color = "white"
-                div.style.backgroundColor = "brown"
-                document.body.appendChild(div);
-            })
+
+
 
         }
 
@@ -55,6 +66,8 @@
 
         }
 
+
+
     }
     class user {
         constructor(name) {
@@ -64,15 +77,41 @@
         update(data) {
             console.log(`${this.name},${data}`)
         }
+        show() {
+
+            document.querySelector("#subsbtn").addEventListener("click", () => {
+                let div = document.createElement("div")
+                div.textContent = `${this.name} subscribed the channel`
+                div.classList.add("toast");
+                document.body.appendChild(div);
+
+                setTimeout(() => {
+                    div.classList.add("show");
+                }, 100);
+
+                setTimeout(() => {
+                    div.classList.remove("show");
+                    setTimeout(() => div.remove(), 400); // wait for fade-out
+                }, 3000);
+
+            })
+
+
+
+        }
     }
 
     let yt = new Youtubech()
     let u1 = new user("Harsh");
+     u1.show();
     let u2 = new user("Janvi");
-    let u3=new user("jeevi");
+    u2.show();
+    let u3 = new user("jeevi");
+    u3.show();
+
     yt.subscribe(u1);
     yt.subscribe(u2);
-     yt.subscribe(u3);
+    yt.subscribe(u3);
     yt.notify("sheriyans have uplaoded a new video")
 
 
